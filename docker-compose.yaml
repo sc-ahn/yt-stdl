@@ -1,0 +1,16 @@
+services:
+  yt-stdl:
+    image: yt-stdl
+    build:
+      context: .
+      dockerfile: yt-stdl.Dockerfile
+    volumes:
+      - ./example:/huray/yt-stdl/example
+      - ./app:/huray/yt-stdl/app
+      - ./bin/yt-stdl:/huray/yt-stdl/bin/
+    env_file:
+      - path: .env
+        required: false
+    environment:
+    - YTSTDL_API_KEY=${YTSTDL_API_KEY}
+    command: ["sleep", "infinity"]
