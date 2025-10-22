@@ -51,7 +51,6 @@ API Key 발급이 필요하며, 일일 할당량 제한이 있습니다.
 ### YouTube Data API v3
 
 > [YouTube > Data API > Captions: list](https://developers.google.com/youtube/v3/docs/captions/list?_gl=1*155l5bv*_up*MQ..*_ga*MTA0MzM2MTE3Mi4xNzYxMDg4NDI2*_ga_SM8HXJ53K2*czE3NjEwODg0MjUkbzEkZzAkdDE3NjEwODg0NjIkajIzJGwwJGgw)
-d
 
 `YouTube Data API v3` 를 사용하여 자막 정보를 가져오려는경우 `client_secrets.json` 파일 세팅과 OAuth 2.0 인증이 필요합니다.
 
