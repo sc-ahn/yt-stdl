@@ -35,7 +35,7 @@ def search_all_videos(
     videos = []
     page_token = None
 
-    for _ in range(max_pages):
+    for page_no in range(max_pages):
         request = youtube.search().list(
             part="snippet",
             q=keyword,
@@ -45,8 +45,15 @@ def search_all_videos(
         )
         response = request.execute()
         items = response.get("items", [])
-        for item in items:
-            videos.append(VideoMetadata(**item))
+        for item_no, item in enumerate(items):
+            try:
+                videos.append(VideoMetadata(**item))
+            except Exception as e:
+                logger.error(f"Error parsing video metadata: {e}")
+                with open(
+                    EXAMPLE_DIR / f"error_item_{page_no}_{item_no}.json", "wb"
+                ) as ef:
+                    ef.write(orjson.dumps(item, option=orjson.OPT_INDENT_2))
         page_token = response.get("nextPageToken")
         if not page_token:
             break

@@ -11,8 +11,8 @@ class Thumbnail(BaseModel):
             examples=["https://i.ytimg.com/vi/n61ULEU7CO0/default.jpg"],
         ),
     ]
-    width: Annotated[int, Field(description="Thumbnail Width")]
-    height: Annotated[int, Field(description="Thumbnail Height")]
+    width: Annotated[int | None, Field(description="Thumbnail Width")] = None
+    height: Annotated[int | None, Field(description="Thumbnail Height")] = None
 
 
 class Thumbnails(BaseModel):

@@ -13,4 +13,7 @@ services:
         required: false
     environment:
     - YTSTDL_API_KEY=${YTSTDL_API_KEY}
+    - YTSTDL_WEBSHARE_USERNAME=${YTSTDL_WEBSHARE_USERNAME}
+    - YTSTDL_WEBSHARE_PASSWORD=${YTSTDL_WEBSHARE_PASSWORD}
+    - YTSTDL_ENABLE_PROXY=${YTSTDL_ENABLE_PROXY}
     command: ["sleep", "infinity"]

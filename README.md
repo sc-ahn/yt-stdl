@@ -75,3 +75,5 @@ YouTube 페이지에서 사용하는 API 엔드포인트를 역공학하여 호�
 - 비공개 영상 자막 다운로드 불가
 - 웹에서 사용하는 API를 이용하므로 YouTube 화면 및 호출구조 변경에 취약
 - JSON 형식 데이터 파싱해서 사용
+- 너무 자주호출하면 IP 차단 당할 수 있음
+  - [웹쉐어 등의 프록시 사용 권장 (모듈에 통합되어있음)](https://github.com/jdepoix/youtube-transcript-api?tab=readme-ov-file#working-around-ip-bans-requestblocked-or-ipblocked-exception)

@@ -15,6 +15,9 @@ class Settings(BaseSettings):
         env_file_encoding="utf-8",
     )
     API_KEY: str = ""
+    WEBSHARE_USERNAME: str = ""
+    WEBSHARE_PASSWORD: str = ""
+    ENABLE_PROXY: bool = False
 
 
 EXAMPLE_DIR = Path(__file__).resolve().parent.parent / "example"

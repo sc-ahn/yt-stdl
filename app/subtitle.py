@@ -1,12 +1,17 @@
 import argparse
+import time
 
 import orjson
-from youtube_transcript_api import FetchedTranscript, YouTubeTranscriptApi
+from youtube_transcript_api import (
+    FetchedTranscript,
+    YouTubeTranscriptApi,
+)
+from youtube_transcript_api.proxies import WebshareProxyConfig
 
 from app.common import LogLevel, ensure_path, get_logger
 from app.schema import TranscriptSummary
 from app.search import save_metadata_to_file, search_all_videos
-from app.settings import EXAMPLE_DIR
+from app.settings import EXAMPLE_DIR, env
 
 logger = get_logger(__name__, LogLevel.INFO)
 
@@ -16,6 +21,7 @@ def reform_transcription(
 ) -> TranscriptSummary:
     scripts = []
     for entry in fetched_transcript:
+        logger.info(f"entry -> {entry}")
         scripts.append(entry.text)
     return TranscriptSummary(
         video_id=fetched_transcript.video_id,
@@ -38,7 +44,15 @@ def main(
         size_per_page=size_per_page,
     )
     save_metadata_to_file(videos, filename=keyword)
-    ytt_api = YouTubeTranscriptApi()
+    if env.ENABLE_PROXY:
+        ytt_api = YouTubeTranscriptApi(
+            proxy_config=WebshareProxyConfig(
+                proxy_username=env.WEBSHARE_USERNAME,
+                proxy_password=env.WEBSHARE_PASSWORD,
+            )
+        )
+    else:
+        ytt_api = YouTubeTranscriptApi()
     for video in videos:
         video_id = video.id.videoId
         title = video.snippet.title
@@ -66,8 +80,9 @@ def main(
                     )
                 )
             logger.info(f"[{video_id}] 자막 저장 완료")
-        except Exception:
-            logger.warning(f"[{video_id}] 자막이 존재하지 않음")
+            time.sleep(2)
+        except Exception as e:
+            logger.warning(f"[{video_id}] 자막이 존재하지 않음: {e}")
             continue
 
 
